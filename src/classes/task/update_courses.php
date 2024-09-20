@@ -23,8 +23,11 @@ class update_courses extends scheduled_task
 
       // Plugin config validation
       if (empty($categories)) {
-         mtrace('Aborting since your plugin configurations are incomplete.');
-         trigger_error('Configurations incomplete!', E_USER_ERROR);
+         mtrace(
+            'Aborting since your plugin configurations are incomplete. ' .
+            'This task will still report as successful so that it does not run again until its normally scheduled time. '
+         );
+         return;
       }
 
       // Find category IDs from the `idnumber` values
