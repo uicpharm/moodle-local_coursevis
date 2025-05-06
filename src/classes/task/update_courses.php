@@ -45,13 +45,9 @@ class update_courses extends scheduled_task
          join {course_categories} cat on crs.category=cat.id
          where
             crs.visible <> if(startdate<UNIX_TIMESTAMP() and enddate>UNIX_TIMESTAMP(), 1, 0) and
-            (
-               find_in_set(cat.id, ?) -- Is a top-level match
-               or
-               find_in_set(substring(substring_index(cat.path, '/', 2), 2), ?) -- Is a sub-category of a match
-            )
+            concat(cat.path,'/') REGEXP concat('/(', replace(replace(?, ' ', ''), ',', '|'), ')/')
          order by crs.id
-      ", [$categoryIds, $categoryIds]);
+      ", [$categoryIds]);
 
       mtrace('There are ' . count($courses) . ' course(s) that need to be updated.');
 
