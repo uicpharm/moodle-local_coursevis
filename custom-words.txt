@@ -1,0 +1,14 @@
+categoryvis
+configtext
+coursevis
+dayofweek
+enddate
+idnumber
+localplugins
+pluginname
+settingpage
+softprops
+startdate
+taskname
+visibleold
+YYYYMMDDHH
